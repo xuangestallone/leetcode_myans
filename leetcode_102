@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        //用队列这个数据结构实现层序遍历
+        //队列中存的是pair：节点和层数的对
+        
+        vector<vector<int>> ans;
+        if(root==NULL)
+            return ans;
+        queue<pair<TreeNode*,int>> node_que;
+        node_que.push(make_pair(root,1));
+        int level=1;
+        vector<int> vec_tmp;
+        pair<TreeNode*,int> tmp;
+        while(!node_que.empty())//队列为空时停止循环
+        {
+            while((tmp=node_que.front()).second==level)//同一层的节点
+            {
+                vec_tmp.push_back((tmp.first)->val);
+                node_que.pop();
+                //依次把左右子树加入队列中
+                if(tmp.first->left!=NULL)
+                    node_que.push(make_pair(tmp.first->left,level+1));
+                if(tmp.first->right!=NULL)
+                    node_que.push(make_pair(tmp.first->right,level+1));
+            }
+            ans.push_back(vec_tmp);
+            vec_tmp.clear();
+            level++;
+            
+        }
+        return ans;
+    }
+};
