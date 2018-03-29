@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        //用队列这个数据结构实现层序遍历
+        //队列中存的是pair：节点和层数的对
+        
+        vector<vector<int>> ans;
+        if(root==NULL)
+            return ans;
+        queue<TreeNode*> node_que;
+        node_que.push(root);
+        //int level=1;
+        vector<int> vec_tmp;
+        vec_tmp.push_back(root->val);
+        ans.push_back(vec_tmp);
+        int is_right=1;
+        
+        while(!node_que.empty())//队列为空时停止循环
+        {
+            vector<TreeNode*> vec_node;
+            vec_tmp.clear();
+            while(!node_que.empty())
+            {
+                TreeNode* tmp=node_que.front();
+                node_que.pop();
+                if(tmp->left)
+                {
+                    vec_node.push_back(tmp->left);
+                    vec_tmp.push_back(tmp->left->val);
+                }
+                if(tmp->right)
+                {
+                    vec_node.push_back(tmp->right);
+                    vec_tmp.push_back(tmp->right->val);
+                }
+            }
+            
+            if(!vec_tmp.empty())
+            {
+                if(is_right==1)
+                {
+                    vector<int> rig_vec;
+                    for(int i=vec_tmp.size()-1;i>=0;i--)
+                        rig_vec.push_back(vec_tmp[i]);
+                    ans.push_back(rig_vec);
+                }
+                else
+                    ans.push_back(vec_tmp);
+            }
+            is_right*=-1;
+                
+            for(int i=0;i<vec_node.size();i++)
+                node_que.push(vec_node[i]);
+            
+        }
+        return ans;
+    }
+};
