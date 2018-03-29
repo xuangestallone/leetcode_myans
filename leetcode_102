@@ -16,26 +16,36 @@ public:
         vector<vector<int>> ans;
         if(root==NULL)
             return ans;
-        queue<pair<TreeNode*,int>> node_que;
-        node_que.push(make_pair(root,1));
-        int level=1;
+        queue<TreeNode*> node_que;
+        node_que.push(root);
+        //int level=1;
         vector<int> vec_tmp;
-        pair<TreeNode*,int> tmp;
+        vec_tmp.push_back(root->val);
+        ans.push_back(vec_tmp);
+        
         while(!node_que.empty())//队列为空时停止循环
         {
-            while((tmp=node_que.front()).second==level)//同一层的节点
-            {
-                vec_tmp.push_back((tmp.first)->val);
-                node_que.pop();
-                //依次把左右子树加入队列中
-                if(tmp.first->left!=NULL)
-                    node_que.push(make_pair(tmp.first->left,level+1));
-                if(tmp.first->right!=NULL)
-                    node_que.push(make_pair(tmp.first->right,level+1));
-            }
-            ans.push_back(vec_tmp);
+            vector<TreeNode*> vec_node;
             vec_tmp.clear();
-            level++;
+            while(!node_que.empty())
+            {
+                TreeNode* tmp=node_que.front();
+                node_que.pop();
+                if(tmp->left)
+                {
+                    vec_node.push_back(tmp->left);
+                    vec_tmp.push_back(tmp->left->val);
+                }
+                if(tmp->right)
+                {
+                    vec_node.push_back(tmp->right);
+                    vec_tmp.push_back(tmp->right->val);
+                }
+            }
+            if(!vec_tmp.empty())
+                ans.push_back(vec_tmp);
+            for(int i=0;i<vec_node.size();i++)
+                node_que.push(vec_node[i]);
             
         }
         return ans;
