@@ -1,0 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool is_equal(TreeNode* one,TreeNode* two)//使用任意一种遍历方法，判断两个子树是否相等
+    {
+        if(one->val!=two->val)
+            return false;
+        bool left=true;
+        bool right=true;
+        if(one->left!=NULL&&two->left!=NULL)
+            left=is_equal(one->left,two->left);
+        else if(one->left==NULL&&two->left!=NULL||one->left!=NULL&&two->left==NULL)
+            return false;
+        
+        if(one->right!=NULL&&two->right!=NULL)
+            right=is_equal(one->right,two->right);
+        else if(one->right==NULL&&two->right!=NULL||one->right!=NULL&&two->right==NULL)
+            return false;
+        
+        if(left&&right)
+            return true;
+        else
+            return false;
+    }
+    
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        //判断t是否是s的子树
+        //使用层序遍历找到s中子树的位置，然后判断两个子树否相等
+        queue<TreeNode*> que;
+        que.push(s);
+        while(!que.empty())
+        {
+            TreeNode* tmp=que.front();
+            que.pop();
+            if(tmp->val==t->val)
+            {
+                if(is_equal(tmp,t))
+                    return true;
+            }
+            if(tmp->left)
+                que.push(tmp->left);
+            if(tmp->right)
+                que.push(tmp->right);
+        }
+        return false;
+    }
+};
