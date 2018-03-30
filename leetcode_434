@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int countSegments(string s) {
+        int len=s.size();
+        if(len==0)
+            return 0;
+        int i=1;
+        int seg_count=0;
+        while(i<len)
+        {
+            if(s[i]==' '&&s[i-1]!=' ')
+                seg_count++;
+            i++;
+        }
+        if(s[0]==' '&&seg_count==0||s[len-1]==' ')
+            return seg_count;
+        else
+            return seg_count+1;
+    }
+};
