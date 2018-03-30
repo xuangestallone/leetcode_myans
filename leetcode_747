@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int dominantIndex(vector<int>& nums) {
+        //最大的数是否至少是其他数的两倍
+        int len=nums.size();
+        int max=nums[0];
+        int index=0;
+        for(int i=0;i<len;i++)
+        {
+            if(nums[i]>max)
+            {
+                max=nums[i];
+                index=i;
+            }
+                
+        }
+        for(int i=0;i<len;i++)
+        {
+            if(nums[i]!=max)
+            {
+                if(2*nums[i]>max)
+                    return -1;
+            }
+        }
+        return index;
+    }
+};
