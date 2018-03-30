@@ -1,0 +1,75 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    
+    //中序遍历形成顺序数组
+    void in_order(TreeNode* root,vector<int>& a)
+    {
+        if(root->left)
+            in_order(root->left,a);
+        a.push_back(root->val);
+        //cout<<root->val<<" ";
+        if(root->right)
+            in_order(root->right,a);
+    }
+    
+    vector<int> findMode(TreeNode* root) {
+        vector<int> ans;
+        vector<int> a;
+        
+        if(root==NULL)
+            return ans;
+        in_order(root,a);
+        int len=a.size();
+        int max_len=1;
+        int tmp_len=1;
+        int i=1;
+        
+        
+        while(i<len)//找到最大长度
+        {
+            if(a[i]==a[i-1])
+                tmp_len++;
+            else
+            {
+                if(tmp_len>max_len)
+                    max_len=tmp_len;
+                tmp_len=1;
+            }
+            i++;
+        }
+        //最后一个数没有处理
+        if(tmp_len>max_len)
+            max_len=tmp_len;
+        
+        
+        
+        i=1;
+        tmp_len=1;
+        while(i<len)
+        {
+            if(a[i]==a[i-1])
+                tmp_len++;
+            else
+            {
+                if(tmp_len==max_len)
+                    ans.push_back(a[i-1]);
+                tmp_len=1;
+            }
+            i++;
+        }
+        if(tmp_len==max_len)
+            ans.push_back(a[len-1]);
+        return ans;
+    } 
+    
+    
+};
