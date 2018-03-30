@@ -1,0 +1,44 @@
+class Solution {
+public:
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+        //注意对角线递增顺序
+        int r=matrix.size();
+        int c=matrix[0].size();
+        //第一行和第一列是所有对角线子数组的起始元素
+        //对第一列而言
+        for(int i=0;i<r;i++)
+        {
+            int col=0;
+            int row=i;
+            int tmp=matrix[row][col];
+            while(row<r&&col<c)
+            {
+                if(matrix[row][col]==tmp)
+                {
+                    row++;
+                    col++;
+                }
+                else
+                    return false;
+            }
+        }
+        //对第一列而言
+        for(int j=1;j<c;j++)
+        {
+            int col=j;
+            int row=0;
+            int tmp=matrix[row][col];
+            while(row<r&&col<c)
+            {
+                if(matrix[row][col]==tmp)
+                {
+                    row++;
+                    col++;
+                }
+                else
+                    return false;
+            }
+        }
+        return true;
+    }
+};
