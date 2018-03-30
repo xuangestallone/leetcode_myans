@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int longestPalindrome(string s) {
+        sort(s.begin(),s.end());
+        //先对s中字符进行排序，然后所有偶数个字符加一个字符(如果有)即为
+        //最长回文数
+        int len=s.size();
+        if(len==1)
+            return 1;
+        int longest=0;
+        int i=1;
+        int odd_count=0;
+        bool is_odd=true;
+        while(i<len)
+        {
+            if(s[i]==s[i-1]&&is_odd)
+            {
+                longest+=2;
+                is_odd=false;
+                odd_count=0;
+            }
+            else
+            {
+                is_odd=true;
+                odd_count=1;
+            }
+            i++;
+            
+        }
+        if(longest<len)
+            odd_count=1;
+        return longest+odd_count;
+        
+    }
+};
