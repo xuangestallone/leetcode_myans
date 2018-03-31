@@ -1,0 +1,12 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        //完全平方数由1+3+5+7+9....构成，可以用这个性质进行判断
+        int i = 1;
+        while (num > 0) {
+            num -= i;
+            i += 2;
+        }
+        return num == 0;
+    }
+};
