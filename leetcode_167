@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int len=numbers.size();
+        //从两段到中间遍历
+        vector<int> ans;
+        int l=0,r=len-1;
+        while(l<r)
+        {
+            if(numbers[l]+numbers[r]>target)
+                r--;
+            else if(numbers[l]+numbers[r]<target)
+                l++;
+            else
+            {
+                ans.push_back(l+1);
+                ans.push_back(r+1);
+                break;
+            }                
+        }
+        return ans;
+        
+    }
+};
