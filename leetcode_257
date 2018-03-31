@@ -1,0 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    //先根遍历，用stack存
+    void in_order(TreeNode* root,stack<string>& sk,vector<string> &ans)
+    {
+        stringstream stream;  
+        stream<<root->val;  
+        string temp=stream.str();
+        temp+="->";
+        if(!sk.empty())
+        {
+            string sk_top=sk.top();
+            sk.pop();
+            temp=sk_top+temp;
+        }
+        if(root->left)
+        {
+            sk.push(temp);
+            in_order(root->left,sk,ans);
+        }
+        if(root->right)
+        {
+            sk.push(temp);
+            in_order(root->right,sk,ans);
+        }
+        if(!root->left&&!root->right)//子树为空
+        {
+            ans.push_back(temp);
+        }
+        
+    }
+    
+    
+    vector<string> binaryTreePaths(TreeNode* root) {
+        stack<string> sk;
+        vector<string> ans;
+        if(!root)
+            return ans;
+        in_order(root,sk,ans);
+        for(int i=0;i<ans.size();i++)
+        {
+            ans[i] = ans[i].substr(0, ans[i].length() - 2);  
+        }
+        return ans;
+    }
+};
