@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string toHex(int num) {
+        //负数是按位取反，末位加一
+        char digit[16]={'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+        string ans="";
+        string tmp="";
+        unsigned tmp_num=num;
+        //bool is_neg=false;
+        if(num==0)
+            return "0";
+        /*if(num<0)
+        {
+            long long sum=pow(2,31);
+            cout<<sum<<endl;
+            num*=-1;
+            num=(int)(sum-num);
+            //cout<<num<<endl;
+        }*/
+        //string tmp="";
+        while(tmp_num>0)
+        {
+            tmp+=digit[tmp_num%16];
+            tmp_num/=16;
+        }
+        
+        for(int i=tmp.size()-1;i>=0;i--)
+            ans+=tmp[i];
+        
+        return ans;    
+    }
+};
