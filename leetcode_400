@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int findNthDigit(int n) {
+        //个位有9个，十位有90*2=180个，百位有900*3，千位有9000*4...同理
+        //1首先要确定是几位数2.然后确定是哪个数3.最后确定是这个数第几位
+        long long tmp=n;
+        long long unit=9;//个位
+        int index=1;//几位数
+        while(tmp>0)
+        {
+            tmp-=unit;
+            index++;
+            unit=unit*10*index/(index-1);
+            //cout<<unit<<endl;
+        }
+        
+        unit/=10;
+        unit/=index;
+        index--;
+        unit*=index;
+        //cout<<unit<<endl;
+        tmp+=unit;//让n>0,然后index是n代表的数的位数
+        
+        int num;
+        //if(index>1)
+        //num=(n+1)/index;//num是index位数的第几个数
+        //else
+        //cout<<tmp<<" "<<unit<<endl;
+        num=tmp/index;
+        //cout<<num<<endl;
+        int i=tmp%index;//i是数的第几个位，如果整除则代表最后一个位
+        if(i==0&&index>1)
+            num--;
+        //cout<<num<<endl;
+        if(index>1)
+        {
+            num+=pow(10,index-1);
+            //num--;//因为下标是从1开始的，所以要减1
+        }
+        //cout<<num<<endl;
+        int j=(index-i)%index;//从右向左数第几个位
+        int ans=0;
+        while(j>=0)
+        {
+            ans=num%10;
+            num/=10;
+            cout<<num<<endl;
+            j--;
+        }
+        return ans;
+    }
+};
