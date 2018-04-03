@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maX=0;
+    int max_dia(TreeNode* root)
+    {
+        if(root==NULL)
+            return 0;
+        int max_left=max_dia(root->left);
+        int max_right=max_dia(root->right);
+        maX=max(maX,max_left+max_right+1);
+        return max(max_left,max_right)+1;
+    }
+    
+    int diameterOfBinaryTree(TreeNode* root) {
+        //对每个节点来说，直径可以表示为
+        //左子树的最大深度+右子树的最大深度
+        //用递归的方法计算最大深度
+        if(!root)
+            return 0;
+        max_dia(root);
+        return maX-1;
+    }
+};
