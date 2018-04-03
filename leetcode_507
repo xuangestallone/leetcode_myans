@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool checkPerfectNumber(int num) {
+        if(num==1)
+            return false;
+        int div=sqrt(num);
+        int tmp=1;
+        for(int i=2;i<=div;i++)
+        {
+            if(num%i==0)
+            {
+                tmp+=i;
+                tmp+=num/i;
+            }
+        }
+        return num==tmp;
+    }
+};
