@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool checkRecord(string s) {
+        int anum=0;
+        int lnum=0;
+        int len=s.length();
+        int i=0;
+        while(i<len)
+        {
+            if(s[i]=='A')
+                anum++;
+            else if(s[i]=='L')
+            {
+                //lnum++;
+                while(s[i]=='L')
+                {
+                    lnum++;
+                    if(lnum>2)
+                        return false;
+                    i++;
+                }
+                i--;
+                lnum=0;
+            }
+            i++;
+        }
+        return anum<=1;
+        //return (anum<=1&&lnum<=2);
+    }
+};
