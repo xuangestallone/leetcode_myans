@@ -1,0 +1,60 @@
+class Solution {
+public:
+    vector<vector<string>> partition(string s) {
+        //首先用一个二维数组确定所有的回文（用DP的方法）
+	//用二维的vector<string>存储前i个字符组成的子字符串的
+	//所有回文数量
+	int len = s.size();
+	vector<vector<bool>> is_pal;
+	is_pal.resize(len + 1);
+	for (int i = 0; i <= len; i++)
+		is_pal[i].resize(len + 1);
+
+	vector<vector<vector<string>>> s_pal;
+	s_pal.resize(len + 1);
+	for (int i = 1; i <= len; i++)
+	{
+		for (int j = i; j >= 1; j--)
+		{
+			if (i == j)
+			{
+				is_pal[i][j] = true;
+			}
+			else
+			{
+				if (s[i-1] == s[j-1])
+				{
+					if (j + 1 == i)
+						is_pal[i][j] = true;
+					else
+						is_pal[i][j] = is_pal[i - 1][j + 1];
+				}
+				else
+					is_pal[i][j] = false;
+			}
+			if (is_pal[i][j])
+			{
+				//i>j
+				string tmp_s = s.substr(j-1, i-j + 1);
+				if (j>1)
+				{
+					vector<vector<string>> tmp_tmp = s_pal[j - 1];
+					for (int m = 0; m<tmp_tmp.size();m++)
+					{
+						tmp_tmp[m].push_back(tmp_s);
+						s_pal[i].push_back(tmp_tmp[m]);
+					}
+				}
+				else//说明第一个
+				{
+					vector<string> tmp;
+					tmp.push_back(tmp_s);
+					s_pal[i].push_back(tmp);
+				}
+			}
+		}
+	}
+
+	return s_pal[len];
+    }
+};
