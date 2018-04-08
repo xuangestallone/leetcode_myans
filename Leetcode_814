@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* pruneTree(TreeNode* root) {
+        //递归的思想
+        /*if(!root)//空的情况
+            return root;
+        TreeNode* left=pruneTree(root->left);
+        TreeNode* right=pruneTree(root->right);
+        if(root->val==0&&!left&&!right)//值为0且左右子树为空，则返回空
+        {
+            root=NULL;
+        }
+        return root;*/
+        if (!root) return NULL;
+        root->left = pruneTree(root->left);
+        root->right = pruneTree(root->right);
+        if (!root->left && !root->right && root->val == 0) return NULL;
+        return root;
+    }
+};
