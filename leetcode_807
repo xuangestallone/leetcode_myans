@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        //max(maxrow(r),maxcol(c))-grid[r][c]
+        //记录每一行和每一列的最大值
+        int r=grid.size();
+        if(r==0)
+            return 0;
+        int c=grid[0].size();
+        vector<int> rmax;
+        vector<int> cmax;
+        rmax.resize(r);
+        cmax.resize(c);
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                rmax[i]=max(rmax[i],grid[i][j]);
+                cmax[j]=max(cmax[j],grid[i][j]);
+            }
+        }
+        
+        int ans=0;
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                ans+=(min(rmax[i],cmax[j])-grid[i][j]);
+            }
+        }
+        return ans;
+        
+    }
+};
