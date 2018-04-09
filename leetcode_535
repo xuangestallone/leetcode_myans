@@ -1,0 +1,30 @@
+class Solution {
+private:
+    vector<string> v;
+public:
+    //简单的编码方案：将所有字符串放在一个vector里，
+    //vector里的index代表编码后字符
+    // Encodes a URL to a shortened URL.
+    string encode(string longUrl) {
+        v.push_back(longUrl);
+        stringstream stream;  
+        stream<<v.size();  
+        string string_temp=stream.str();
+        return "http://tinyurl.com/"+string_temp;
+    }
+
+    // Decodes a shortened URL to its original URL.
+    string decode(string shortUrl) {
+        int index=shortUrl.rfind("/",shortUrl.length());
+        
+        int ans;
+        stringstream stream(shortUrl.substr(index,shortUrl.length()-1));  
+        stream>>ans;
+        cout<<ans;
+        return v[ans];
+    }
+};
+
+// Your Solution object will be instantiated and called as such:
+// Solution solution;
+// solution.decode(solution.encode(url));
