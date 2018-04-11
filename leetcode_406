@@ -1,0 +1,24 @@
+class Solution {
+public:
+    static bool compare(pair<int,int>a,pair<int,int>b)
+    {
+        if(a.first==b.first)
+            return a.second<b.second;
+        return a.first>b.first;
+    }
+    
+    vector<pair<int, int>> reconstructQueue(vector<pair<int, int>>& people) {
+        //sort by height
+        sort(people.begin(),people.end(),compare);
+        int len=people.size();
+        vector<pair<int,int>> ans;
+        if(len==0)
+            return ans;
+        ans.push_back(people[0]);
+        for(int i=1;i<len;i++)
+        {
+            ans.insert(ans.begin()+people[i].second,people[i]);
+        }
+        return ans;
+    }
+};
