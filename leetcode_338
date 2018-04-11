@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> ans;
+        ans.resize(num+1);
+        ans[0]=0;
+        //运用动态规划的思想，根据位的特点，不能减1，而是右移一位
+        for(int i=1;i<=num;i++)
+            ans[i]=ans[i>>1]+(i&1);
+        //int tmp=3;
+        //cout<<ans[tmp>>1]<<endl;
+        //cout<<(tmp&1)<<endl;
+        return ans;
+        
+    }
+};
