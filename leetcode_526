@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int countArrangement(int N) {
+        //每个位置要么i能整除nums[i]，
+        //要么nums[i]能整除i
+        //递归的方法
+        
+    //public:
+    //    int countArrangement(int N) {
+        if (N == 0) return 0;
+        vector<bool> used;
+        used.resize(N+1);
+        helper(N, 1, used);
+        return count;
+     //   }
+    }
+    
+private:
+    int count = 0;
+    void helper(int N, int pos, vector<bool> used) {
+        if (pos > N) {//条件是>时说明，已经遍历完
+            count++;
+            return;
+        }
+        
+        for (int i = 1; i <= N; i++) {
+            if (used[i] == 0 && (i % pos == 0 || pos % i == 0)) {
+                used[i] = 1;
+                helper(N, pos + 1, used);
+                used[i] = 0;
+            }
+        }
+    }
+
+};
