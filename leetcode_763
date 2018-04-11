@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string S) {
+        vector<int> ans;
+        if(S.length() == 0){
+            return ans;
+        }
+        //List<Integer> list = new ArrayList<>();
+        vector<int> map;  // record the last index of the each char
+        map.resize(26);
+
+        for(int i = 0; i < S.length(); i++){
+            map[S[i]-'a'] = i;
+        }
+        // record the end index of the current sub string
+        int last = 0;
+        int start = 0;
+        for(int i = 0; i < S.length(); i++){
+            last = max(last, map[S[i]-'a']);//每次都记录之前的字符结束的最大位置，
+            //所以肯定能将所有同一个字符包含在一个块儿中
+            if(last == i){
+                ans.push_back(last - start + 1);
+                start = last + 1;
+            }
+        }
+        return ans;
+    }
+};
