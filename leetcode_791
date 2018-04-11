@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string customSortString(string S, string T) {
+        //比较麻烦的一种方法
+        vector<int> map[26];//T中每个字符出现的位置
+        vector<int> map_s;
+        map_s.resize(26);
+        for(int i=0;i<T.length();i++)
+        {
+            map[T[i]-'a'].push_back(i);
+        }
+        
+        string ans;
+        for(int i=0;i<S.length();i++)
+        {
+            for(int j=0;j<map[S[i]-'a'].size();j++)
+                ans+=S[i];
+            map_s[S[i]-'a']=1;
+        }
+        
+        for(int i=0;i<T.length();i++)
+        {
+            if(map_s[T[i]-'a']==0)
+                ans+=T[i];
+        }
+        return ans;
+    }
+};
