@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int countSubstrings(string s) {
+        int len=s.length();
+        int count=0;
+        vector<vector<bool>> is_pal;
+        is_pal.resize(len);
+        for(int i=0;i<len;i++)
+            is_pal[i].resize(len);
+        //for(int i=0;i<len;i++)
+        //    is_pal[i][i]=true;
+        for(int i=0;i<len;i++)
+        {
+            for(int j=i;j>=0;j--)
+            {
+                if(i==j)
+                    is_pal[i][j]=true;
+                else//j<=i
+                {
+                    if(s[i]==s[j])
+                    {
+                        if(j+1==i)
+                            is_pal[i][j]=true;
+                        else if(i>=0)
+                            is_pal[i][j]=is_pal[i-1][j+1];
+                    }
+                }
+                if(is_pal[i][j])
+                    count++;
+            }
+        }
+        return count;
+        
+    }
+};
