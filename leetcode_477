@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int totalHammingDistance(vector<int>& nums) {
+        //每个数用位表示，int是32个位，
+        //相同位置的位假如有k个为1，n-k个为0
+        //则这些数在这个位置上的汉明距离为n*(n-k)
+        int len=nums.size();
+        int total=0;
+        for(int i=0;i<32;i++)
+        {
+            int countone=0;
+            int countzero=0;
+            for(int j=0;j<len;j++)
+            {
+                if(nums[j]&1==1)
+                    countone++;
+                else
+                    countzero++;
+                nums[j]>>=1;//右移一位
+            }
+            total+=countone*countzero;
+        }
+        return total;
+    }
+};
