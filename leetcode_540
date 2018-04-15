@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int singleNonDuplicate(vector<int>& nums) {
+        //题目特点，只有一个数出现一次，其他数均出现两次
+        //所以可以用二分搜索，保证左半部分个数是偶数，
+        //判断右面两个数是否相等，相等说明出现一次的数在右面
+        //不等则说明在左面
+        int len=nums.size();
+        int s=0,e=len-1;
+        int mid=(s+e)/2;
+        while(s<e)
+        {
+            if(mid%2==1)mid--;
+            if(nums[mid]!=nums[mid+1])//在左面
+                e=mid;
+            else
+                s=mid+2;
+            mid=(s+e)/2;
+        }
+        return nums[s];
+    }
+};
