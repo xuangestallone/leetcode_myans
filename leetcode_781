@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
+        int len=answers.size();
+        if(len==0)return 0;
+        int ans=0;
+        sort(answers.begin(),answers.end());
+        int i=0;
+        int last=0;
+        int starti=0;
+        while(i<len)
+        {
+            if(last!=answers[i]+1||i-starti+1>last)
+            {
+                
+                last=answers[i]+1;
+                ans+=last;
+                starti=i;
+            }
+            i++;
+        }
+        return ans;
+    }
+};
