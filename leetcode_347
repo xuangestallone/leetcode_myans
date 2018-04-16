@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        //k小于有效元素的个数,不用判断是否能找到k个频率最高的数
+        //很简单的想法，
+        //用map存储每个数字出现的频率
+        unordered_map<int,int> map;
+        for(int num : nums){
+            map[num]++;
+        }
+        //把数字频率对(pair)存到一个优先队列中
+        //优先队列是按照key进行排序的，取出前k个就是结果
+        vector<int> res;
+        // pair<first, second>: first is frequency,  second is number
+        priority_queue<pair<int,int>> pq; 
+        for(auto it = map.begin(); it != map.end(); it++){
+            pq.push(make_pair(it->second, it->first));
+            if(pq.size() > (int)map.size() - k){
+                res.push_back(pq.top().second);
+                pq.pop();
+            }
+        }
+        return res;
+        
+        
+    }
+};
