@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        //返回一个数组除了自己以外其他元素的乘积
+        //不能用除法
+        //很巧妙的想法，先遍历一遍记录除了自己前i个数的乘积
+        //再遍历一遍记录除了自己后i个数的乘积(乘以之前的数)
+        int len=nums.size();
+        vector<int> ans;
+        if(len==0)
+            return ans;
+        ans.resize(len);
+        ans[0]=1;
+        for(int i=1;i<len;i++)
+            ans[i]=ans[i-1]*nums[i-1];
+        
+        int right=1;
+        for(int i=len-2;i>=0;i--)
+        {
+            right*=nums[i+1];
+            ans[i]*=right;
+        }
+        return ans;
+        
+    }
+};
