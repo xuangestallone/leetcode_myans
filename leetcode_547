@@ -1,0 +1,33 @@
+
+class Solution {
+public:
+    void dfs(vector<vector<int>> M,int len,vector<bool>& isused,int i)
+    {
+        isused[i]=true;
+        for(int j=0;j<len;j++)
+        {
+            if(M[i][j]==1&&isused[j]==false)
+            {
+                dfs(M,len,isused,j);
+            }
+        }
+    }
+    
+    int findCircleNum(vector<vector<int>>& M) {
+        //用递归的方法 ,是个矩形
+        int len=M.size();
+        vector<bool> isused;
+        isused.resize(len);
+        int count=0;
+        for(int i=0;i<len;i++)
+        {
+            if(isused[i]==false)
+            {
+                dfs(M,len,isused,i);
+                count++;
+            }
+        }
+        return count;
+        
+    }
+};
